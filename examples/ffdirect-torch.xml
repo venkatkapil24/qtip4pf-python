@@ -1,0 +1,21 @@
+<simulation verbosity="low" threading="false" safe_stride="100">
+  <ffdirect name="water" threaded="false" pbc="false">
+    <pes>custom</pes><pes_path>qtip4pf/ffdirect.py</pes_path>
+    <batch_size>4</batch_size>
+    <parameters>{implementation: torch, precision: mixed, kernels: triton, device: cuda, host_output: false, compiled: true, fixed_box: true, cutoff_nm: 0.6, box_nm: 1.24138}</parameters>
+  </ffdirect>
+  <total_steps>10</total_steps><output prefix="torch"/>
+  <prng><seed>12345</seed></prng>
+  <system>
+    <initialize nbeads="4"><file mode="xyz">data/water64.xyz</file>
+      <velocities mode="thermal" units="kelvin">300</velocities>
+    </initialize>
+    <normal_modes transform="matrix" propagator="exact"/>
+    <forces><force forcefield="water"/></forces>
+    <ensemble><temperature units="kelvin">300</temperature></ensemble>
+    <motion mode="dynamics"><fixcom>true</fixcom><dynamics mode="nvt">
+      <timestep units="femtosecond">0.5</timestep>
+      <thermostat mode="pile_l"><tau units="femtosecond">100</tau></thermostat>
+    </dynamics></motion>
+  </system>
+</simulation>

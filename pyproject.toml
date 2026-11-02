@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qtip4pf-python"
+version = "0.1.0"
+description = "Batched Torch and JAX q-TIP4P/F with ordinary Ewald"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["qtip4pf*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
